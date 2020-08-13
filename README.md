@@ -9,4 +9,6 @@
 
 - Rota para criar uma aula;
 - Rota para listar aulas;
-  - Filtrar por matéria, dia da semana, e horário;# next-level-week-proffy-backend
+  - Filtrar por matéria, dia da semana, e horário;
+
+# next-level-week-proffy-backend

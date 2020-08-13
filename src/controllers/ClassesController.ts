@@ -26,7 +26,8 @@ export default class ClassesController {
 
     const timeInMinutes = converHoursToMinutes(time);
     
-    const classes = await db('classes')
+    try {
+      const classes = await db('classes')
       .whereExists(function() {
         this.select('class_schedule.*')
         .from('class_schedule')
@@ -39,8 +40,11 @@ export default class ClassesController {
       .join('users', 'classes.user_id', '=', 'users.id')
       .select(['classes.*', 'users.*']);
 
-    return response.json(classes);
+      return response.json(classes);
 
+    } catch (error) {
+      return response.send(400).json({error});
+    }
   }
 
   async create(request: Request, response: Response) {

@@ -3,18 +3,27 @@ import db from "../database/connection";
 
 export default class ConnectionsController {
   async index(request: Request, response: Response) {
-    const totalConnections = await db('connections').count('* as total');
+    try {
+      const totalConnections = await db('connections').count('* as total');
 
-    const { total } = totalConnections[0];
+      const { total } = totalConnections[0];
 
-    return response.json({ total });
+      return response.json({ total });
+    } catch (error) {
+      return response.send(400).json({error});
+    }
+    
   }
 
   async create(request: Request, response: Response) {
-    const {user_id} = request.body;
+    try {
+      const {user_id} = request.body;
 
-    await db('connections').insert({user_id});
+      await db('connections').insert({user_id});
 
-    return response.status(201).send();
+      return response.status(201).send();
+    } catch (error) {
+      return response.send(400).json({error});
+    }
   }
 }
